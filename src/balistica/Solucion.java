@@ -20,8 +20,9 @@ public class Solucion {
     }    
     
     public Solucion(){
-        this.angulo = 45.0;
+        this.angulo = Math.PI/4;
         this.vi = 100;
+        this.m = 10;
     }
     
     public double getAngulo(){
@@ -34,5 +35,9 @@ public class Solucion {
         
     public double getMasa(){
         return m;
+    }
+    
+    public void debug(){
+        System.out.println("Masa: "+m+"Kg\tVelocidad Inicial: "+vi+"m/s\tAngulo: "+angulo+"rad");
     }
 }
