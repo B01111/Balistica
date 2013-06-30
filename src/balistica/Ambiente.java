@@ -61,7 +61,7 @@ public class Ambiente {
         }
         double ds = vi*ts*Math.cos(angulo);    //ds = distancia entre el punto de disparo y el de colision
         //System.out.println("Fuerza: "+fuerza+"N\tTiempo de impacto: "+ts+"s\tDistancia Recorrida: "+ds+"m");
-        double puntaje = Math.max(0,1000+Math.max(0,(50-Math.abs(d-ds)))*100-3*ts-Math.pow(fuerza,1/3));
+        double puntaje = Math.max(0,1000+Math.max(0,(Math.sqrt(m)+50-Math.abs(d-ds)))*100-10*ts-Math.sqrt(fuerza)/10);
         return puntaje; //Falta sacar el puntaje
     }
 }
