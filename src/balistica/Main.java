@@ -53,9 +53,8 @@ public class Main {
         Solucion t = new Solucion(0.0000001+Math.random()*((Math.PI/2)-0.0000001),1+Math.random()*999,1+Math.random()*99);
         s.debug();
         t.debug();
-        //System.out.println("S: "+Long.toBinaryString(Double.doubleToRawLongBits(s.getAngulo())));
-        //System.out.println("T: "+Long.toBinaryString(Double.doubleToRawLongBits(t.getAngulo())));
-        (s.cruzar(t)).debug();
-        (t.cruzar(s)).debug();
+        Hijos h = s.cruzar(t);
+        h.hijo1.debug();
+        h.hijo2.debug();    
     }
 }
