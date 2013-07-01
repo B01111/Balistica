@@ -12,6 +12,11 @@ public class Par implements Comparable<Par>{
     public Solucion solucion;
     public double puntaje;
     
+    public Par(){
+        this.solucion = null;
+        this.puntaje = 0.0;
+    }
+    
     public Par(Solucion solucion,double puntaje){
         this.solucion = solucion;
         this.puntaje = puntaje;

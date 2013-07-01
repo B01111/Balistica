@@ -4,13 +4,12 @@
  */
 package balistica;
 
-import java.math.BigInteger;
 
 /**
  *
  * @author b01111
  */
-public class Solucion {
+public class Solucion implements Comparable<Solucion>{
     private double angulo;
     private double vi;
     private double m;
@@ -41,14 +40,6 @@ public class Solucion {
     
     public void debug(){
         System.out.println("Masa: "+m+"Kg\tVelocidad Inicial: "+vi+"m/s\tAngulo: "+angulo+"rad");
-    }
-    
-    public boolean equals(Solucion s){
-        boolean resultado = false;
-        if(this.m == s.getMasa() && this.vi == s.getVelocidadInicial() && this.angulo == s.getAngulo()){
-            resultado = true;
-        }
-        return resultado;
     }
     
     public Hijos cruzar(Solucion s){
@@ -105,5 +96,14 @@ public class Solucion {
         a = Long.parseLong(a1a+b1b,2)+"."+Long.parseLong(a2a+b2b,2);    //Se combinan las partes
         b = Long.parseLong(b1a+a1b,2)+"."+Long.parseLong(b2a+a2b,2);
         return a+" "+b;
+    }
+
+    @Override
+    public int compareTo(Solucion o) {
+        int resultado = 1;
+        if(this.angulo == o.angulo && this.vi == o.getVelocidadInicial() && this.m == o.getMasa()){
+            resultado = 0;
+        }
+        return resultado;
     }
 }
