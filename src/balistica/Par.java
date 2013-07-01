@@ -21,22 +21,24 @@ public class Par implements Comparable<Par>{
         this.solucion = solucion;
         this.puntaje = puntaje;
     }
-    
-    public boolean equals(Par p){
-        boolean resultado = false;
-        if(this.solucion.equals(p.solucion)){
-            resultado = true;
-        }
-        return resultado;
-    }
 
     @Override
     public int compareTo(Par o) {
-        int resultado = 0;
-        if(this.puntaje < o.puntaje){
-            resultado = -1;
-        }else if(this.puntaje > o.puntaje){
-            resultado = 1;
+        return Double.compare(this.puntaje, o.puntaje);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 43 * hash + (int) (Double.doubleToLongBits(this.puntaje) ^ (Double.doubleToLongBits(this.puntaje) >>> 32));
+        return hash;
+    }
+    
+    @Override
+    public boolean equals(Object o){
+        boolean resultado = true;
+        if(this.compareTo((Par)o) != 0){
+            resultado = false;
         }
         return resultado;
     }

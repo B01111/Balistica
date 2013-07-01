@@ -9,7 +9,7 @@ package balistica;
  *
  * @author b01111
  */
-public class Solucion implements Comparable<Solucion>{
+public class Solucion{
     private double angulo;
     private double vi;
     private double m;
@@ -80,6 +80,11 @@ public class Solucion implements Comparable<Solucion>{
         b1 = Long.toBinaryString(Long.parseLong(b1));
         b2 = Long.toBinaryString(Long.parseLong(b2));
         
+        a1 = mutacion(a1);
+        a2 = mutacion(a2);
+        b1 = mutacion(b1);
+        b2 = mutacion(b2);
+        
         pos = (int)a1.length()/2;       //Se parten en 8
         String a1a = a1.substring(0, pos);
         String a1b = a1.substring(pos, a1.length());
@@ -97,13 +102,21 @@ public class Solucion implements Comparable<Solucion>{
         b = Long.parseLong(b1a+a1b,2)+"."+Long.parseLong(b2a+a2b,2);
         return a+" "+b;
     }
-
-    @Override
-    public int compareTo(Solucion o) {
-        int resultado = 1;
-        if(this.angulo == o.angulo && this.vi == o.getVelocidadInicial() && this.m == o.getMasa()){
-            resultado = 0;
+    
+    public String mutacion(String gen){
+        char[] genCa= gen.toCharArray();
+        int l = gen.length();
+        int mutageno;
+        for(int i = 0; i < l;++i){
+            mutageno = (int)Math.round(Math.random()*100); //Mutacion tiene 1% de probabilidad por bit
+            if(mutageno == 11){
+                if(genCa[i] == '0'){
+                    genCa[i] = '1';
+                }else{
+                    genCa[i] = '0';
+                }
+            }
         }
-        return resultado;
+        return String.copyValueOf(genCa);
     }
 }

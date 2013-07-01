@@ -18,28 +18,40 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       // VentanaParametros vp = new VentanaParametros();
+        //VentanaParametros vp = new VentanaParametros(); Aun no esta conectada a la aplicacion
         //vp.setVisible(true);
         int tamano = 30;
-        Ambiente ambiente = new Ambiente();
-        ArrayList<Par> poblacionAnterior = generarPoblacion(tamano,ambiente);
-        ArrayList<Par> poblacion = siguienteGeneracion(tamano,ambiente,poblacionAnterior);
+        int iteraciones = 30;
+        double gravedad = 9.8;
+        double alturaInicial = 0.0;
+        double distanciaObjetivo  = 1000.0;
+        
+        //Generamos el ambiente y la poblacion inicial
+        Ambiente ambiente = new Ambiente(gravedad,alturaInicial,distanciaObjetivo);
+        ArrayList<Par> poblacion = generarPoblacion(tamano,ambiente);
+        
+        //Imprimimos los puntajes de la poblacion inicial (Por ahora en consola)
         System.out.println("Primera poblacion:");
-        Iterator<Par> i = poblacionAnterior.iterator();
+        Iterator<Par> i = poblacion.iterator();
         Par p;
         while(i.hasNext()){
             p = i.next();
             System.out.println(p.puntaje);
         }
         
-        System.out.println("Siguiente poblacion:");
+        //Iteramos sobre las poblaciones
+        for(int j =0; j < iteraciones; ++j){
+            poblacion = siguienteGeneracion(tamano,ambiente,poblacion);
+        }
+        
+        //Los puntajes de la ultima poblacion
+        System.out.println("Ultima poblacion:");
         i = poblacion.iterator();
         while(i.hasNext()){
             p = i.next();
+            p.solucion.debug();
             System.out.println(p.puntaje);
         }
-        
-
     }
     
     static private ArrayList<Par> generarPoblacion(int tamano,Ambiente ambiente){
@@ -56,6 +68,9 @@ public class Main {
         return poblacion;
     }
     
+    /*
+     * Se aplica elitismo, cruce por ruleta y mutacion que se encuentra dentro del cruce
+     */
     static private ArrayList<Par> siguienteGeneracion(int tamano,Ambiente ambiente,ArrayList<Par> poblacionAnterior){
         ArrayList<Par> poblacion = new ArrayList<>(tamano);
         int n = 0;
@@ -74,13 +89,12 @@ public class Main {
             ++n;
         }
         
-        //Ruleta para reproduccion
+        //Ruleta para cruce
         i = poblacionAnterior.iterator();
         while(i.hasNext()){
             p = i.next();
             aptitudTotal += p.puntaje; 
         }
-        System.out.println("Aptitud total poblacion anterior: "+aptitudTotal+"\n");
         
         n = 0;
         while(n < 10){
@@ -108,6 +122,8 @@ public class Main {
                 ++n;
             }
         }
+        
+        //Se ordena la poblacion por aptitud de mayor a menor
         Collections.sort(poblacion);
         Collections.reverse(poblacion);
         return poblacion;

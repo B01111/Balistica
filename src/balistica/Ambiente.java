@@ -53,13 +53,14 @@ public class Ambiente {
         double vi = s.getVelocidadInicial();
         double angulo = s.getAngulo();
         double fuerza = (m*vi/tDisparo);
-        double ts;
+        double ts,ds;
         if(yi > 0.0){
             ts = (vi*Math.sin(angulo)+ Math.sqrt(Math.pow(vi,2)*Math.pow(Math.sin(angulo),2)+2*g*yi))/g;   //tiempo en impactar el suelo
+            ds = vi*ts*Math.cos(angulo);    //ds = distancia entre el punto de disparo y el de colision
         }else{
             ts = 2*vi*Math.sin(angulo)/g;
+            ds = Math.pow(vi, 2)*Math.sin(angulo*2)/g;
         }
-        double ds = vi*ts*Math.cos(angulo);    //ds = distancia entre el punto de disparo y el de colision
         //System.out.println("Fuerza: "+fuerza+"N\tTiempo de impacto: "+ts+"s\tDistancia Recorrida: "+ds+"m");
         double puntaje = Math.max(0,1000+Math.max(0,(Math.sqrt(m)+50-Math.abs(d-ds)))*100-10*ts-Math.sqrt(fuerza)/10);
         return puntaje; //Falta sacar el puntaje
