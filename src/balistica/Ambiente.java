@@ -62,7 +62,7 @@ public class Ambiente {
             ds = Math.pow(vi, 2)*Math.sin(angulo*2)/g;
         }
         //System.out.println("Fuerza: "+fuerza+"N\tTiempo de impacto: "+ts+"s\tDistancia Recorrida: "+ds+"m");
-        double puntaje = Math.max(0,1000+Math.max(0,(Math.sqrt(m)+50-Math.abs(d-ds)))*100-10*ts-Math.sqrt(fuerza)/10);
+        double puntaje = Math.max(0,1000+Math.max(0,(Math.sqrt(m)+50-Math.abs(d-Math.max(0,ds))))*100-10*ts-Math.sqrt(fuerza)/10);
         return puntaje; //Falta sacar el puntaje
     }
 }
